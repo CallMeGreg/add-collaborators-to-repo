@@ -56,11 +56,11 @@ def main():
     attendees = get_attendees(list_of_users)
 
     #translate permission:
-    permission = translate_permission(permission)
+    permission_to_set = translate_permission(permission)
 
     logging.info(f"Number of users to be added: " + str(len(attendees)))
     logging.info(f"Target repo: {full_repo}")
-    logging.info(f"Permission: {permission}")
+    logging.info(f"Permission: {permission_to_set}")
     
     # invite attendees to repo
     error_count = 0
