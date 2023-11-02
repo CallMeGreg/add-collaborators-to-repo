@@ -38,7 +38,7 @@ jobs:
           cache: 'pip' # caching pip dependencies
       - run: pip install -r requirements.txt
       
-      - name: Setup Orgs
+      - name: Add collaborators
         run: |
           LIST_OF_USERS=${{ inputs.github_handles }}
           TARGET_REPO=${{ inputs.target_repo }}
