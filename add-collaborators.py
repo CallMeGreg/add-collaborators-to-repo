@@ -4,10 +4,10 @@ import os
 import logging
 
 # Get Arguments
-list_of_users = sys.argv[0]
-target_repo = sys.argv[1]
-permission = sys.argv[2]
-owner = sys.argv[3]
+list_of_users = sys.argv[1]
+target_repo = sys.argv[2]
+permission = sys.argv[3]
+owner = sys.argv[4]
 
 full_repo = owner + '/' + target_repo
 
