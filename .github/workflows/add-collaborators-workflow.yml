@@ -1,0 +1,50 @@
+name: Add outside collaborators to a repo
+on:
+  workflow_dispatch:
+    inputs:
+      # add two inputs: one is a list of github handles, the other is the target repo in the current org:
+      github_handles:
+        description: 'Comma separated list of github handles'
+        required: true
+        default: 'monalisa,octocat,hubot'
+      target_repo:
+        description: 'Target repo to add users to'
+        required: true
+        default: repo-name
+      permission:
+        type: choice
+        description: 'Permission to grant to users'
+        required: true
+        options:
+          - read
+          - write
+
+permissions:
+  contents: read
+
+jobs:
+  add-collaborators:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: pip install -r requirements.txt
+      
+      - name: Setup Orgs
+        run: |
+          LIST_OF_USERS=${{ inputs.github_handles }}
+          TARGET_REPO=${{ inputs.target_repo }}
+          PERMISSION=${{ inputs.permission }}
+
+          REPO_OWNER=${{ github.repository_owner }}
+
+          # execute python script
+          python3 add-collaborators.py $LIST_OF_USERS $TARGET_REPO $PERMISSION $REPO_OWNER
+          
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
