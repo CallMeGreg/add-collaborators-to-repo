@@ -13,7 +13,7 @@ class Repo:
             logging.info(f"Successfully added {username} to {name_with_owner}")
             return
         else:
-            e = f"Error adding collaborator to repository.  Response: {response.json()}"
+            e = f"Error adding {username} to {name_with_owner}.  Response: {response.json()}"
             logging.error(e)
             raise Exception(e)
 

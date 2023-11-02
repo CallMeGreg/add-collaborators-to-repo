@@ -68,7 +68,6 @@ def main():
         try:
             admin_client.repo.add_collaborator(full_repo, attendee, permission)
         except Exception as e:
-            logging.error(e)
             error_count += 1
             pass
     logging.info(f"Number of errors while adding users: {error_count}")
