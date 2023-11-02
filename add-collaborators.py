@@ -17,6 +17,22 @@ admin_token = os.environ.get('GITHUB_TOKEN')
 # Setup client
 admin_client = client.Client(admin_token)
 
+def translate_permission(permission):
+    if permission == "write":
+        return "push"
+    elif permission == "read":
+        return "pull"
+    elif permission == "admin":
+        return "admin"
+    elif permission == "maintain":
+        return "maintain"
+    elif permission == "triage":
+        return "triage"
+    else:
+        e = f"Invalid permission: {permission}"
+        logging.error(e)
+        raise Exception(e)
+
 def get_attendees(list_of_users):
     attendees = []
     list_of_users = list_of_users.split(',')
@@ -38,6 +54,9 @@ def main():
     
     # split and trim list of users:
     attendees = get_attendees(list_of_users)
+
+    #translate permission:
+    permission = translate_permission(permission)
 
     logging.info(f"Number of users to be added: " + str(len(attendees)))
     logging.info(f"Target repo: {full_repo}")
