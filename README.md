@@ -1,5 +1,3 @@
-**Note**: This organization uses the entitlements repo to grant access, therefore this action is not usable.
-
 # Overview
 A GitHub Action to add outside collaborators to a repository.
 
