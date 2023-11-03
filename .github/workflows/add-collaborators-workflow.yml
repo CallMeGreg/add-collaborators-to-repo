@@ -29,6 +29,13 @@ jobs:
   add-collaborators:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate App token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+
       - name: Checkout
         uses: actions/checkout@v3
       
@@ -47,7 +54,6 @@ jobs:
           REPO_OWNER=${{ github.repository_owner }}
 
           # execute python script
-          python3 add-collaborators.py $LIST_OF_USERS $TARGET_REPO $PERMISSION $REPO_OWNER
-          
+          python3 add-collaborators.py $LIST_OF_USERS $TARGET_REPO $PERMISSION $REPO_OWNER  
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
